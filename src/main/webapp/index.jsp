@@ -75,7 +75,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="Register.jsp">Register</a><br>
     <a href="Login.jsp">Login</a> -->
 
-  <h1><a href="email">EMAIL</a></h1>
 
     <div class="w3-twothird">
       <h1>Lorem Ipsum</h1>
