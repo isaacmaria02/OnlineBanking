@@ -5,7 +5,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/adminlogin.css">
 
-
 <style>
 
 $('.message a').click(function(){
@@ -16,12 +15,6 @@ $('.message a').click(function(){
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-
-
-
 
 <div class="login-page">
   <div class="form">

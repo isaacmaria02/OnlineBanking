@@ -1,6 +1,5 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
-
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -99,9 +98,7 @@ if(session!=null)
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
               });
-              
-             
-           
+                                   
             });
         </script>
 
@@ -287,8 +284,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-10">
@@ -318,10 +313,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-success o-hidden h-10">
@@ -349,11 +340,8 @@ if(session!=null)
       <a class="dropdown-item" href="#">Change Transaction Password</a>
    </div>
 </div>
-
             </div>
-            
-            
-            
+                                  
             <table id="customers" >
             <th colspan="2">Personal Details</th>
             <tr>
@@ -390,12 +378,7 @@ if(session!=null)
             </tr>  <tr>
               <td>State</td>
                <td>${user_profile.state}</td>
-            </tr>       
-            
-            
-            
-     
-           
+            </tr>                                               
             </table>   
             
             <br><br><br><br>
@@ -405,10 +388,7 @@ if(session!=null)
            <tr>
               <td>Customer ID</td>
                <td>${user_profile.customer_id}</td>
-            </tr>
-            
-     
-            
+            </tr>                
               <tr>
              <td>  Account Number</td>
                 <td>${user_profile.account_number}</td>
@@ -418,18 +398,12 @@ if(session!=null)
                <td>Balance</td>
                <td>${user_profile.balance}</td>
             </tr>
-            
-     
+                
               <tr>
                <td>Type</td>
                <td>${user_profile.account_type}</td>
             </tr>       
             </table>
-            
-            
-            
-           
-
 
         <!-- /.container-fluid -->
 

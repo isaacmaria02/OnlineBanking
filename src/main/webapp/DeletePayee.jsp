@@ -1,6 +1,5 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
-
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -12,7 +11,6 @@ if(session!=null)
 	}
 }
 %>
-
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -21,8 +19,7 @@ if(session!=null)
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-  
+  <head> 
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
@@ -40,31 +37,21 @@ if(session!=null)
                   
                   
                   $('.readonly').prop('disabled', true) 
-            
-            	  
+                      	  
               });
               
               
               $("#backbtn").click(function(){
             	  $('.hidden').hide();
-                  $('#transfer').show();
-                  
+                  $('#transfer').show();                
                   
                   $('.readonly').prop('disabled', false) 
-            
-            	  
+          	  
               });
-              
-              
-              
+           
               $('#fundtransfer').on('submit', function() {
             	    $('.readonly').prop('disabled', false);
-            	});
-              
-              
-              
-            
-              
+            	});        
             });
         </script>
 
@@ -174,8 +161,7 @@ if(session!=null)
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Fund Transfer</span></a>
         </li>
-        
-        
+                
          <br><br>
          <li class="nav-item">
           <a class="nav-link" href="logout">
@@ -226,8 +212,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-10">
@@ -257,10 +241,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-success o-hidden h-10">
@@ -288,9 +268,7 @@ if(session!=null)
       <a class="dropdown-item" href="#">Change Transaction Password</a>
    </div>
 </div>
-
             </div>
-            
             
             <%-- 
            
@@ -318,21 +296,12 @@ if(session!=null)
                 </table>
             </c:if>
         </div> --%>
-        
-        
-        
          <h3>Delete Payee</h3>
         <form action="DeletePayee">
           <br><br>  <h4>Delete Payee by Name</h4> <input type="text" name="payee_name">
-            
-             
+                         
             <input value="Delete Payee" class="btn btn-primary dropdown-toggle dropdown-toggle-split"  type="submit">
         </form>
-            
-            
-
-
-
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
@@ -396,5 +365,3 @@ if(session!=null)
   </body>
 
 </html>
-
-

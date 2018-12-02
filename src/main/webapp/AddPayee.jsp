@@ -1,6 +1,5 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
-
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -167,8 +166,7 @@ if(session!=null)
 <html lang="en">
 
   <head>
-  
-  
+   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -185,30 +183,20 @@ if(session!=null)
                   
                   
                   $('.readonly').prop('disabled', true) 
-            
-            	  
+                       	  
               });
-              
-              
+                 
               $("#backbtn").click(function(){
             	  $('.hidden').hide();
                   $('#transfer').show();
-                  
-                  
+                                  
                   $('.readonly').prop('disabled', false) 
-            
-            	  
+                        	  
               });
-              
-              
-              
+                                       
               $('#fundtransfer').on('submit', function() {
             	    $('.readonly').prop('disabled', false);
-            	});
-              
-              
-              
-            
+            	});                                       
               
             });
         </script>
@@ -245,8 +233,7 @@ if(session!=null)
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
-
-      
+    
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
@@ -402,10 +389,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-success o-hidden h-10">
@@ -433,21 +416,17 @@ if(session!=null)
       <a class="dropdown-item" href="#">Change Transaction Password</a>
    </div>
 </div>
-
             </div>
-            
-            
+                        
                 <div align="center">
          <form action="addPayee" >
             <input style="display:none;" type="number" value="${account_number}" name="customer_account_number">
-             Payee Account Number : <input type="number" name="payee_account_number"><br>
-            Name : <input type="text" name="name"><br>
-            NickName: <input type="text" name="nick_name"><br>
+             Payee Account Number : <input type="number" name="payee_account_number" pattern="[1]{1}[0-9]{11}"><br>
+            Name : <input type="text" name="name" pattern="[A-Za-z]{}"><br>
+            NickName: <input type="text" name="nick_name" pattern="[A-Za-z]{}"><br>
             <input value="Add Payee" class="btn btn-primary dropdown-toggle dropdown-toggle-split"  type="submit">
         </form>
             </div>
-
-
 
         <!-- /.container-fluid -->
 
@@ -512,5 +491,3 @@ if(session!=null)
   </body>
 
 </html>
-
-

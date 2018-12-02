@@ -1,6 +1,5 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
-
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -12,8 +11,6 @@ if(session!=null)
 	}
 }
 %>
-
-
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -45,8 +42,7 @@ if(session!=null)
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="custombutton.css">
-    
-    
+       
     <style>
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -70,9 +66,7 @@ if(session!=null)
     background-color: #0099ff;
     color: white;
 }
-</style>
-    
-
+</style>   
   </head>
 
   <body id="page-top">
@@ -84,8 +78,7 @@ if(session!=null)
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
-
-      
+    
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
@@ -158,8 +151,7 @@ if(session!=null)
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Fund Transfer</span></a>
         </li>
-        
-        
+               
          <br><br>
          <li class="nav-item">
           <a class="nav-link" href="logout">
@@ -210,8 +202,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-10">
@@ -239,10 +229,6 @@ if(session!=null)
           <a class="dropdown-item" href="DisplayPayee">Display Payee</a>
    </div>
 </div>
-
-
-
-
 
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
@@ -273,10 +259,6 @@ if(session!=null)
 </div>
 
             </div>
-            
-
-
-
        <!-- BODY -->
        
         <h3>Account Statement</h3>
@@ -327,8 +309,6 @@ if(session!=null)
 
 
    ${statement}
-   
-   
 
         <!-- /.container-fluid -->
 

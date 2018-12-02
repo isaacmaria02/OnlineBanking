@@ -1,6 +1,5 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
-
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -19,8 +18,6 @@ if(session!=null)
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
-
 <html lang="en">
 
   <head>
@@ -34,8 +31,7 @@ if(session!=null)
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-  
-  
+   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -49,38 +45,20 @@ if(session!=null)
               $("#transfer").click(function(){
             	  $('.hidden').show();
                   $('#transfer').hide();
-                  
-                  
                   $('.readonly').prop('disabled', true) 
-            
-            	  
-              });
-              
-              
+         });
+                            
               $("#backbtn").click(function(){
             	  $('.hidden').hide();
-                  $('#transfer').show();
-                  
-                  
-                  $('.readonly').prop('disabled', false) 
-            
-            	  
+                  $('#transfer').show();                               
+                  $('.readonly').prop('disabled', false)                      	  
               });
-              
-              
-              
+                                         
               $('#fundtransfer').on('submit', function() {
             	    $('.readonly').prop('disabled', false);
-            	});
-              
-              
-              
-            
-              
+            	});                                                                    
             });
         </script>
-
-
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -91,16 +69,10 @@ if(session!=null)
                 $("#payeeListTable tr").filter(function() {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
-              });
-              
-             
-                
-           
+              });                          
+                          
             });
-            
-            
-            
-            
+      
         </script>
 
     <meta charset="utf-8">
@@ -161,15 +133,10 @@ if(session!=null)
         <i class="fas fa-bars"></i>
       </button>
 
-      
- 
-
-
 <div class="pull">
         <ul class="nav navbar-nav pull-right float-right">
             <li><a href="logout" class="btn btn-outline-light	pull-right">Logout</a></li>
         </ul>     
-        
          
 </div>
     </nav>
@@ -256,8 +223,6 @@ if(session!=null)
    </div>
 </div>
 
-
-
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-10">
@@ -267,9 +232,7 @@ if(session!=null)
                   </div>
                   <div class="mr-5">Fund Transfer</div>
                 </div>
-                
-                
-                
+
               </div>
 
 <!-- .dropright -->
@@ -288,10 +251,6 @@ if(session!=null)
    
    </div>
 </div>
-
-
-
-
 
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
@@ -320,12 +279,9 @@ if(session!=null)
       <a class="dropdown-item" href="changeTransactionPasswordPage">Change Transaction Password</a>
    </div>
 </div>
-
             </div>
-            
- 
-           
-            <c:if test="${not empty DisplayPayeeView}">
+                       
+             <c:if test="${not empty DisplayPayeeView}">
             <div align="center">
                 <br><br>
         <h3>Search</h3>   <input class="form-control" id="searchPayee" type="text" placeholder="Search..">
@@ -350,25 +306,17 @@ if(session!=null)
                 </table>
                 </div>
             </c:if>
-        </div>
-            
-                      
-                      
-            
-            
-            
+        </div>                          
+           
             ${transaction}
             ${payee_status}            
             ${changeId }
             ${changePassword}
             ${changeTransactionPassword }
             ${fundTransfer }
-            
-            
-            
+          
             <c:if test="${not empty AddPayeeView}">
-            
-                
+             
                 <div align="center">
                              <h3>Add Payee</h3>
                 
@@ -383,10 +331,7 @@ if(session!=null)
         </form>
             </div>
             </c:if>
-            
-            
-            
-            
+          
              <c:if test="${not empty DeletePayeeView}">
                             <div align="center">
             
@@ -394,24 +339,20 @@ if(session!=null)
         <form action="DeletePayee">
         <table>
          <tr><td>Delete Payee by Name</td><td> <input type="text" name="payee_name"></td></tr>
-            
-             
+                       
             <tr><td colspan="2"><input value="Delete Payee" class="btn btn-primary dropdown-toggle dropdown-toggle-split"  type="submit"></td><tr>
         </table>
         </form>
             </div>
             
             </c:if>
-            
-            
-      
+          
              <c:if test="${not empty ChangeIdView}">
                             <div align="center">
                             
                             <h3>Change User Id</h3>
             <table>
-          
-          
+                  
           <form action="checkId" method="post">
 <tr><td>Old ID</td><td><input type="text" name="old"></td></tr>
 <tr><td>New User ID</td><td><input type="text" name="new"></td></tr>
@@ -425,8 +366,6 @@ ${changeId }
             </div>
             
             </c:if>
-            
-            
             
                <c:if test="${not empty ChangePasswordView}">
                             <div align="center">
@@ -444,9 +383,7 @@ ${changePassword }
             </div>
             
             </c:if>
-            
-            
-            
+           
                <c:if test="${not empty ChangeTransactionPasswordView}">
                             <div align="center">
                             
@@ -463,10 +400,6 @@ ${changeTransactionPassword }
             </div>
             
             </c:if>
-            
-            
-            
-            
               <c:if test="${not empty AccountStatementView}">
                             <div align="center">
                             
@@ -483,8 +416,7 @@ ${changeTransactionPassword }
         <br><br>
                     </div>
             
-            </c:if>
-            
+            </c:if>          
             
             <c:if test="${not empty AccountStatementList}">
            
@@ -535,9 +467,7 @@ ${changeTransactionPassword }
                <a class="btn btn-primary dropdown-toggle dropdown-toggle-split" href="download">Download</a>
         
         </c:if>
-
-
-           
+ 
                        <c:if test="${not empty statement}">
             
               <div align="center">
@@ -550,15 +480,10 @@ ${changeTransactionPassword }
 
             <!-- <input type="submit" value="Get Account Statement"><br> -->
         </form>
-           </div><br>
-           
-              ${statement}
-           
+           </div><br>           
+              ${statement}         
      </div>
 </c:if>
-
-
-
 
                        <c:if test="${not empty AccountSummaryView}">
             
@@ -572,8 +497,6 @@ ${changeTransactionPassword }
                <td>${summary.customer_id}</td>
             </tr>
             
-     
-            
               <tr>
              <td>  Account Number</td>
                 <td>${summary.account_number}</td>
@@ -582,28 +505,16 @@ ${changeTransactionPassword }
               <tr>
                <td>Balance</td>
                <td>${summary.balance}</td>
-            </tr>
-            
+            </tr>            
      
               <tr>
                <td>Type</td>
                <td>${summary.account_type}</td>
             </tr>       
             </table>
-
-        
-        
-           </div><br>
-           
-            
-           
+           </div><br>  
      </div>
 </c:if>
-
-
-
-
-
 
             <c:if test="${not empty AccountDetailsView}">
             
@@ -648,10 +559,6 @@ ${changeTransactionPassword }
               <td>State</td>
                <td>${user_profile.state}</td>
             </tr>       
-            
-            
-            
-     
            
             </table>   
             
@@ -664,8 +571,6 @@ ${changeTransactionPassword }
                <td>${user_profile.customer_id}</td>
             </tr>
             
-     
-            
               <tr>
              <td>  Account Number</td>
                 <td>${user_profile.account_number}</td>
@@ -675,29 +580,17 @@ ${changeTransactionPassword }
                <td>Balance</td>
                <td>${user_profile.balance}</td>
             </tr>
-            
-     
+                 
               <tr>
                <td>Type</td>
                <td>${user_profile.account_type}</td>
             </tr>       
             </table>
-            
-
-        
-        
+          
            </div><br>
-           
-            
            
      </div>
 </c:if>
-
- 
-
-
-
-
 
                        <c:if test="${not empty FundTransferView}">
             
@@ -792,21 +685,12 @@ ${changeTransactionPassword }
 
 
             });
-
-            
+           
             </script>
-         
-            
-</div>
-
- 
- 
+      
+</div> 
  </div>
 </c:if>
-
-
-
-
 
         <!-- /.container-fluid -->
 

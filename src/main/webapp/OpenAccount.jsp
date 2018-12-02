@@ -116,26 +116,17 @@
 <body>
 
 <nav class="navbar navbar-inverse">
-
-
-  
-       
         
          <ul class="nav navbar-nav pull-right float-left">
             <li><a  href="javascript:history.back()" class="btn btn-outline-light	pull-right">Back</a></li>
         </ul>   
-
 
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">SBBI Bank</a>
     </div>
     
-
 </nav>
-
-
-  
 
 <form action="open" method="post">
   <div class="container" align="center" >
@@ -153,40 +144,39 @@
 	</select><br>
 
   <label for="First Name"><b>First Name* <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter First Name" name="first_name" required><br>
+    <input type="text" placeholder="Enter First Name" name="first_name" pattern="[A-Za-z]{}" required><br>
 
     <label for="Middle Name"><b>Middle Name <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter Middle Name" name="middle_name"><br>
+    <input type="text" placeholder="Enter Middle Name" pattern="[A-Za-z]{}" name="middle_name"><br>
 
 <label for="Last Name"><b>Last Name* <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter Last Name" name="last_name" required><br>
+    <input type="text" placeholder="Enter Last Name" name="last_name" pattern="[A-Za-z]{}" required><br>
 
 <label for="Father's Name"><b>Father's Name* <span class="fa fa-user"></span> :</span></b></label><br>
-    <input type="text" placeholder="Enter Father's Name" name="father_name" required><br>
+    <input type="text" placeholder="Enter Father's Name" name="father_name" pattern="[A-Za-z]{}" required><br>
 
 <label for="Email Id"><b>Email Id <span class = "fa fa-envelope"></span></b></label><br>
-<input type="email" id="Enter Email Id" title="e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,3}$"></br>
+<input type="email" id="Enter Email Id" title="Please enter a valid email address ending with e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,3}$"></br>
 
  <label for="Mobile No"><b>Mobile Number* <span class="fa fa-mobile"></span>:</b></label><br>
-<input type="tel" name="mobile_number" pattern="[6-9]{1}[0-9]{9}" title="Please enter a valid mobile number" required>
-</br>
+<input type="tel" name="mobile_number" pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Please enter a valid mobile number" required></br>
 
 <label for="Aadhar Card No"><b>Aadhar Card No* <span class="fa fa-address-card"></span>:</b></label><br>
-    <input type="text" placeholder="Enter Aadhar No" name="aadhar_card" pattern = "[2-9]{1}[0-9]{11}" title="Please enter a 12 digit aadhar number" required><br> 
+    <input type="text" placeholder="Enter Aadhar No" name="aadhar_card" pattern = "[2-9]{1}[0-9]{11}" maxlength="12" title="Please enter a 12 digit aadhar number" required><br> 
 
 <label for="Date Of Birth"><b>Date Of Birth* <span class="fa fa-calendar"></span>:</b></label><br>
     <input type="date"  name="date_of_birth" value="1990-01-01" required><br>
     
     <label for="Annual_Income"><b>Annual Income* :</b></label><br>
-    <input type="text"  name="annual_income" pattern="[1-9]{4-9}" ><br>
+    <input type="text"  name="annual_income" pattern="[1-9]{1}[0-9]{}"><br>
 
  <p><b>Address <span class="fa fa-address-card"></span>:</b></p><br>
 
  <label for="Address Line 1"><b>Address Line 1* :</b></label><br>
-    <input type="text"  name="address_line_1" required><br>
+    <input type="text"  name="address_line_1" pattern="[A-Za-z0-9]{}" required><br>
     
 <label for="Address Line 2"><b>Address Line 2* :</b></label><br>
-    <input type="text"  name="address_line_2" required><br>
+    <input type="text"  name="address_line_2" pattern="[A-Za-z0-9]{}" required><br>
     
 <label for="State"><b>State* :</b></label><br>
    <select name="state">
@@ -223,10 +213,10 @@
       </select><br><br>
 
 <label for="City"><b>City* :</b></label><br>
-    <input type="text"  name="city" required><br><br>
+    <input type="text"  name="city" pattern="[A-Za-z]{}" required><br><br>
 
 <label for="Pincode"><b>Pincode* :</b></label><br>
-    <input type="text"  name="pin_code" pattern="[0-9]{6}" required><br><br>
+    <input type="text" name="pin_code" pattern="[1-9]{1}[0-9]{5}" maxlength="6" required><br><br>
 
 <input type="checkbox" name="Agree" value="Agree" required>By creating an account you agree to our terms and conditions.<br>
    
