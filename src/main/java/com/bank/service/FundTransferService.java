@@ -25,9 +25,7 @@ public class FundTransferService implements IFundTransferService {
 
 	@Transactional
 	public int addPayee(Payee payee) {
-		System.out.println("yo");
 		// TODO Auto-generated method stub
-		System.out.println(payee.getCustomer_account_number() + "in ser");
 		return tdao.addPayee(payee);
 	}
 
@@ -49,7 +47,7 @@ public class FundTransferService implements IFundTransferService {
 		// CHECKING BALANCE
 		float balance = edao.checkBalance(userAccountNumber);
 
-		if (balance < (tr.getAmount() + charges)) {
+		if (balance < (tr.getAmount() + charges)) {			
 			return false;
 		}
 
@@ -80,28 +78,30 @@ public class FundTransferService implements IFundTransferService {
 		return Long.parseLong(new String(digits));
 	}
 
-	public static float calculateCharges(Transaction tr) {
+	public float calculateCharges(Transaction tr) {
 		float charges = 0.0f;
 		long amount = tr.getAmount();
 
 		if (tr.getType().equals("IMPS")) {
 			if (amount < 100000) {
-				charges = 5 + 18 / 100 * 5;
+				charges = (float) (5 + (0.18 * 5));
 
 			} else if (amount > 100000 && amount < 200000) {
-				charges = 15 + 18 / 100 * 15;
+				charges = (float) (15 + (0.18 * 15));
 			}
 		}
 
 		else if (tr.getType().equals("RTGS")) {
 			if (amount < 500000 && amount > 200000) {
-				charges = 25 + 18 / 100 * 25;
+				charges = (float) (25 + (0.18 * 25));
+				
 
 			} else if (amount > 500000) {
-				charges = 50 + 18 / 100 * 50;
+				charges = (float) (50 + (0.18 * 50));
 			}
 		}
 
+		
 		return charges;
 	}
 

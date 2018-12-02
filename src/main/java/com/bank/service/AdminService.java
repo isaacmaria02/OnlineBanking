@@ -1,6 +1,15 @@
 package com.bank.service;
 
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +32,9 @@ public class AdminService implements IAdminService {
 	@Autowired
 	AdminDao addao;
 	
+	@Autowired
+	EmailService email;
+	
 
 
 	@Transactional
@@ -35,61 +47,57 @@ public class AdminService implements IAdminService {
 	
 
 	@Transactional
-	public int reject(int i) {
+	public int reject(int customerId) {
 		// TODO Auto-generated method stub
-		return addao.reject(i);
-	}
+		return addao.reject(customerId);
+		
+		
+		
+		}
+		
+		
+		
+	
+	
 	
 	
 	
 	
 
 	@Transactional
-	public int approve(int i) {
+	public int approve(int customerId) {
 		// TODO Auto-generated method stub
-		return addao.approve(i);
+			
+			
+		int isRequestApproved = addao.approve(customerId);
+		Profile user = addao.getProfile(customerId);	
+		
+
+		
+		 String emailMessage = "Dear "+user.getFirst_name()+"<br/> Your SBBI Bank Account is Activated"+"<br/><br/>"+
+		 "Please Register to avail the internet banking facility<br/><br/>"
+		 +"Your Account Number is "+user.getAccount_number();
+		 
+		 String emailSubject = "Congratulations ! Your SBBI account has been activated";		
+				
+		if(isRequestApproved>0)
+		
+			{
+			try {
+				email.sendEmail(user.getEmail_id(), user, emailSubject, emailMessage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println(e);
+				isRequestApproved=-1;
+			}           
+		
+			}
+		
+		
+			
+		
+		return isRequestApproved;
 	}
-/*
-	@Transactional
-	public int registerOnline(InternetBankingUser ibu) {
-		// TODO Auto-generated method stub
-		return edao.register(ibu);
-	}
 
-	@Transactional
-	public boolean validateUser(Login login) {
-		// TODO Auto-generated method stub
-		return edao.login(login);
-	}
-
-	@Transactional
-	public long getAccountNumber(Login login) {
-		// TODO Auto-generated method stub
-
-		return edao.getAccountNumber(login);
-	}
-
-	
-	@Transactional
-	public float getBalance(long accountNumber) {
-		// TODO Auto-generated method stub
-
-		return edao.checkBalance(accountNumber);
-	}
-
-	@Override
-	public Account getSummary(long accountNumber) {
-		// TODO Auto-generated method stub
-		return edao.getSummary(accountNumber);
-	}	
-	
-	@Transactional
-	public Profile getDetails(long customerAccountNumber) {
-		// TODO Auto-generated method stub
-
-		return edao.getProfileDetails(customerAccountNumber);
-	}
-*/
-	
 	
 }

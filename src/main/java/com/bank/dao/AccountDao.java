@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataAccessException.*; 
+import org.springframework.dao.DataAccessException.*;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -133,7 +135,7 @@ public class AccountDao implements IAccountDao
  * @return int : return positive values when successfully registered for internet banking
  * </p>
  */
-	public int register(InternetBankingUser ibu)
+	public int register(InternetBankingUser ibu) 
 	{
 		int i =0;
 		
@@ -217,7 +219,7 @@ public class AccountDao implements IAccountDao
 	
 
 
-	public  void emailAccountNumber(Customer customer, Account account, Address address)
+	/*public  void emailAccountNumber(Customer customer, Account account, Address address)
 	{
 		String to = customer.getEmail_id();
 		System.out.println(to);
@@ -259,7 +261,7 @@ public class AccountDao implements IAccountDao
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
-	}
+	}*/
 	
 	/**
 	 * @param customerAccountNumber : It is used as a parameter to obtain summary information of the customer
@@ -309,14 +311,14 @@ public class AccountDao implements IAccountDao
 			user.setAadhar_card(rs.getLong(8));
 			user.setDate_of_birth(rs.getString(9));
 			user.setAnnual_income(rs.getInt(10));
-			user.setAddress_line_1(rs.getString(12));
-			user.setAddress_line_2(rs.getString(13));
-			user.setPin_code(rs.getString(14));
-			user.setCity(rs.getString(15));
-			user.setState(rs.getString(16));
-			user.setAccount_number(rs.getLong(18));
-			user.setAccount_type(rs.getString(20));
-			user.setBalance(rs.getFloat(19));
+			user.setAddress_line_1(rs.getString(13));
+			user.setAddress_line_2(rs.getString(14));
+			user.setPin_code(rs.getString(15));
+			user.setCity(rs.getString(16));
+			user.setState(rs.getString(17));
+			user.setAccount_number(rs.getLong(19));
+			user.setAccount_type(rs.getString(21));
+			user.setBalance(rs.getFloat(20));
 
 
 
@@ -324,7 +326,25 @@ public class AccountDao implements IAccountDao
 		}
 
 	}
+	
+	
+	class ChangeIdMapper implements RowMapper<InternetBankingUser> {
+		public InternetBankingUser mapRow(ResultSet rs, int arg1) throws SQLException {
+			InternetBankingUser user = new InternetBankingUser();
+			
+			user.setUser_id(rs.getString(1));	
+			
 
+
+
+			return user;
+		}
+
+	}
+	
+	
+	
+	
 	public Profile getProfileDetails(long customerAccountNumber) {
 		// TODO Auto-generated method stub
 		
@@ -339,6 +359,133 @@ public class AccountDao implements IAccountDao
 		
 		
 		return userDetails;
+	}
+	
+	public boolean checkUserId(long customerAccountNumber, String oldId) {
+		
+		
+		String getUserIdQuery="select GIBU_USER_ID from gr13_internet_banking_users where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber+" and GIBU_USER_ID='"+oldId+"'";
+
+		
+		List<InternetBankingUser> users = jdbcTemplate.query(getUserIdQuery, new ChangeIdMapper());
+		
+		if(users.size()>0)
+			return true;
+		
+	
+		
+		return false;
+		
+		
+	}
+	
+public boolean checkDupliateId( String userId) {
+		
+		
+		String getUserIdQuery="select GIBU_USER_ID from gr13_internet_banking_users where GIBU_USER_ID='"+userId+"'";
+
+		
+		List<InternetBankingUser> users = jdbcTemplate.query(getUserIdQuery, new ChangeIdMapper());
+		
+		if(users.size()>0)
+			return true;
+		
+	
+		
+		return false;
+		
+		
+	}
+	
+public boolean checkLoginPassword(long customerAccountNumber, String oldPassword) {
+		
+		
+		String getLoginPasswordQuery="select GIBU_USER_ID from gr13_internet_banking_users where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber+" and GIBU_LOGIN_PASSWORD='"+hash.getMd5(oldPassword)+"'";
+
+		
+		List<InternetBankingUser> users = jdbcTemplate.query(getLoginPasswordQuery, new ChangeIdMapper());
+		
+		if(users.size()>0)
+			return true;
+		
+	
+		
+		return false;
+		
+		
+	}
+
+public boolean checkTransactionPassword(long customerAccountNumber, String oldPassword) {
+	
+	
+	String getTransactionPasswordQuery="select GIBU_USER_ID from gr13_internet_banking_users where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber+" and GIBU_TRANSACTION_PASSWORD='"+hash.getMd5(oldPassword)+"'";
+
+	
+	List<InternetBankingUser> users = jdbcTemplate.query(getTransactionPasswordQuery, new ChangeIdMapper());
+	
+	if(users.size()>0)
+		return true;
+	
+
+	
+	return false;
+	
+	
+}
+	
+public int changeUserId(long customerAccountNumber, String newId) {
+		
+		
+		String changeUserIdQuery="update gr13_internet_banking_users set gibu_user_id='"+newId+"' where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber;
+		
+		
+		return jdbcTemplate.update(changeUserIdQuery);
+		
+		
+	}
+
+
+public int changeLoginPassword(long customerAccountNumber, String newPassword) {
+	
+	
+	String changeLoginPasswordQuery="update gr13_internet_banking_users set GIBU_LOGIN_PASSWORD='"+hash.getMd5(newPassword)+"' where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber;
+	
+	
+	return jdbcTemplate.update(changeLoginPasswordQuery);
+	
+	
+}
+
+public int changeTransactionPassword(long customerAccountNumber, String newPassword) {
+	
+	
+	String changeLoginPasswordQuery="update gr13_internet_banking_users set GIBU_TRANSACTION_PASSWORD='"+hash.getMd5(newPassword)+"' where GIBU_GA_ACCOUNT_NUMBER="+customerAccountNumber;
+	
+	
+	return jdbcTemplate.update(changeLoginPasswordQuery);
+	
+	
+}
+
+
+@Override
+public boolean verifyAccountNumber(InternetBankingUser ibu) {
+	// TODO Auto-generated method stub
+	
+	String verifyAccountNumberQuery="select GIBU_USER_ID from gr13_internet_banking_users where GIBU_GA_ACCOUNT_NUMBER="+ibu.getAccount_number();
+
+	
+	List<InternetBankingUser> users = jdbcTemplate.query(verifyAccountNumberQuery, new ChangeIdMapper());
+	
+	if(users.size()>0)
+		return true;
+	
+
+	
+	return false;
+	
+	
+	
 	}
 	
 

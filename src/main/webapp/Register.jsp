@@ -55,18 +55,26 @@ return true;
 <body>
 
 <nav class="navbar navbar-inverse">
+
+   <ul class="nav navbar-nav pull-right float-left">
+            <li><a  href="javascript:history.back()" class="btn btn-outline-light	pull-right">Back</a></li>
+        </ul>   
+
+
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">SBBI Bank</a>
     </div>
 </nav>
   
+  <h2>${register }</h2>
 <form action="register" method="post">
   <div class="container" align="center">
 
     <h1 align="center">Register for Internet Banking</h1>
    <center> <h4>Please fill in the form to avail Internet Banking</h2></center>
     <hr>    
+    <h2>${register_error }</h2>
   <label for="Account No"><b>Account Number *<span class="fa fa-address-card"></span>  :</b></label><br>
     <input type="number" placeholder="Enter your account number" name="account_number" required><br>
 

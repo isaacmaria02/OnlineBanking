@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.ServerException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -35,6 +38,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,13 +99,50 @@ public class BankController {
 	}
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public ModelAndView register(ModelAndView model, @ModelAttribute InternetBankingUser ibu) {
+	public ModelAndView register(ModelAndView model, @ModelAttribute InternetBankingUser ibu){
 
 		
 		
 
 		// REGISTER IF IT EXISTS
-		int i = accountService.registerOnline(ibu);
+         boolean isAccountRegistered = accountService.verifyAccountNumber(ibu);		
+		
+         if(isAccountRegistered)
+         {
+        	 model.addObject("register_error","This account is already registered");
+        	 model.setViewName("Register");
+        	 return model;
+         }
+         
+         
+        boolean userIdAlreadyExists = accountService.checkDupliateId(ibu.getUser_id());
+     
+        if(userIdAlreadyExists)
+        {
+        	model.addObject("register_error","User ID Already Exists");
+       	 model.setViewName("Register");
+       	 return model;
+        }
+        
+        /*   
+         if())
+         {
+        	 model.addObject("register_error","User ID Already Exists");
+        	 model.setViewName("Register");
+        	 return model;
+         }*/
+        
+		
+		
+		int i;
+		try {
+			i = accountService.registerOnline(ibu);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			model.addObject("register","Please enter different User Id");
+			model.setViewName("Register");
+			return model;
+		}
 
 		if (i > 0) {
 
@@ -206,8 +247,13 @@ public class BankController {
 
 		List<Payee> payeeList = fundTransferService.displayPayee((Long) session.getAttribute("account_number"));
 
+		model.addObject("DisplayPayeeView", "not empty");
 		model.addObject("PayeeList", payeeList);
 		model.setViewName("Dashboard");
+		
+		if(payeeList.size()==0)
+			model.addObject("payee_status", "No payee is the list");
+
 
 		return model;
 
@@ -216,6 +262,8 @@ public class BankController {
 	@RequestMapping("/FundTransfer")
 	public ModelAndView fundTransfer(HttpServletRequest request, HttpServletResponse response, ModelAndView model,
 			HttpSession session) {
+		
+		
 
 
 		List<Payee> payeeList = fundTransferService.displayPayee((Long) session.getAttribute("account_number"));
@@ -224,7 +272,8 @@ public class BankController {
 		
 		model.addObject("PayeeList", payeeList);
 
-		model.setViewName("FundTransferForm");
+		model.addObject("FundTransferView","not empty");
+		model.setViewName("Dashboard");
 
 		return model;
 
@@ -235,8 +284,20 @@ public class BankController {
 			HttpSession session, @ModelAttribute Transaction tr) {
 
 
+           
+		boolean checkTransactionPassword = accountService.checkTransactionPassword((Long) session.getAttribute("account_number"),request.getParameter("transactionPassword") );
+		
+		System.out.println("is transaction password same "+checkTransactionPassword);
+		
 
-
+		if(!checkTransactionPassword)
+		{
+			model.addObject("transaction","Transaction Password does not match");
+			model.setViewName("Dashboard");
+			return model;
+		}
+		
+		
 		boolean isSuccessful = fundTransferService.confirmTransaction(tr,
 				(Long) session.getAttribute("account_number"));
 
@@ -245,6 +306,14 @@ public class BankController {
 			model.setViewName("Dashboard");
 			
 		} else {
+			System.out.println(tr.getFrom_account());
+			System.out.println(fundTransferService.calculateCharges(tr));
+			
+			if(accountService.getBalance(tr.getFrom_account())<(tr.getAmount()+fundTransferService.calculateCharges(tr)))
+			{
+				model.addObject("transaction","Insufficient Balance");
+			}
+		   else			
 	       model.addObject("transaction","Transaction Failure");
 
 			model.setViewName("Dashboard");
@@ -270,8 +339,8 @@ public class BankController {
          model.addObject("summary", userAccount);
          
          
-         
-         model.setViewName("AccountSummary");
+         model.addObject("AccountSummaryView","not empty");
+         model.setViewName("Dashboard");
        
 
 
@@ -319,7 +388,9 @@ public class BankController {
 			model.addObject("statement","No Results Found");
 		
 		}
-		model.setViewName("AccountStatement");
+		
+		
+		model.setViewName("Dashboard");
 
 		return model;
 
@@ -336,7 +407,8 @@ public class BankController {
          
          System.out.println(userProfile);
          
-         model.setViewName("AccountDetails");
+         model.addObject("AccountDetailsView","not empty");
+         model.setViewName("Dashboard");
        
 
 
@@ -347,17 +419,139 @@ public class BankController {
 	
 	
 	
-	@RequestMapping("/changeId")
-	public ModelAndView changeId(ModelAndView model, HttpSession session) {
+	@RequestMapping("/checkId")
+	public ModelAndView changeId(ModelAndView model, HttpSession session,HttpServletRequest request, HttpServletResponse response) {
 			
+		String oldUserId = request.getParameter("old");
+		String newUserId = request.getParameter("new");
 		
-         
+		
+		long accountNumber = (Long) session.getAttribute("account_number");
+		
+		boolean isUserId =accountService.checkUserId(accountNumber,oldUserId);
+       
+		
+		if(isUserId)
+		{
+			
+			int isUserIdUpdated = accountService.changeUserId(accountNumber,newUserId);
+			
+			if(isUserIdUpdated>0)
+			{
+			     model.addObject("changeId","User Id Successfully Updated");
 
+			}
+			else
+			{
+			     model.addObject("changeId","Could not update User Id");
 
+			}
+			
+			
+		     model.setViewName("Dashboard");
 
+		}else
+		{
+		     model.addObject("changeId","Please enter correct User Id");
+		     model.setViewName("Dashboard");
+		}
+
+		
 		return model;
 
 	}
+	
+	
+	
+	
+	@RequestMapping("/checkPassword")
+	public ModelAndView changePassword(ModelAndView model, HttpSession session,HttpServletRequest request, HttpServletResponse response) {
+			
+		String oldLoginPassword = request.getParameter("old");
+		String newLoginPassword = request.getParameter("new");
+		
+		
+		long accountNumber = (Long) session.getAttribute("account_number");
+		
+		boolean isLoginPassword =accountService.checkLoginPassword(accountNumber,oldLoginPassword);
+       
+		
+		if(isLoginPassword)
+		{
+			
+			int isUserIdUpdated = accountService.changeLoginPassword(accountNumber,newLoginPassword);
+			
+			if(isUserIdUpdated>0)
+			{
+			     model.addObject("changePassword","Login Password Successfully Updated");
+
+			}
+			else
+			{
+			     model.addObject("changePassword","Could not update Login Password");
+
+			}
+			
+			
+		     model.setViewName("Dashboard");
+
+		}else
+		{
+		     model.addObject("changePassword","Please enter correct Login Password");
+		     model.setViewName("Dashboard");
+		}
+
+		
+		return model;
+
+	}
+	
+	
+	
+	@RequestMapping("/checkTransactionPassword")
+	public ModelAndView changeTransactionPassword(ModelAndView model, HttpSession session,HttpServletRequest request, HttpServletResponse response) {
+			
+		String oldTransactionPassword = request.getParameter("old");
+		String newTransactionPassword = request.getParameter("new");
+		
+		
+		long accountNumber = (Long) session.getAttribute("account_number");
+		
+		boolean isLoginPassword =accountService.checkTransactionPassword(accountNumber,oldTransactionPassword);
+       
+		
+		if(isLoginPassword)
+		{
+			
+			int isUserIdUpdated = accountService.changeTransactionPassword(accountNumber,newTransactionPassword);
+			
+			if(isUserIdUpdated>0)
+			{
+			     model.addObject("changeTransactionPassword","Transaction Password Successfully Updated");
+
+			}
+			else
+			{
+			     model.addObject("changeTransactionPassword","Could not update Transaction Password");
+
+			}
+			
+			
+		     model.setViewName("Dashboard");
+
+		}else
+		{
+		     model.addObject("changeTransactionPassword","Please enter correct Transaction Password");
+		     model.setViewName("Dashboard");
+		}
+
+		
+		return model;
+
+	}
+	
+	
+	
 	
 	
 	@RequestMapping("/download")
@@ -372,11 +566,20 @@ public class BankController {
         
         
         XWPFDocument document = new XWPFDocument(); 
+        
+        
+    
+
 		
               	    try{
-              	    	File file = new File("C:\\Users\\AE103_PC7\\git\\OnlineBank\\src\\main\\resources\\"+userProfile.getAccount_number());
-          	        	session.setAttribute("filePath","C:\\Users\\AE103_PC7\\git\\OnlineBank\\src\\main\\resources\\"+userProfile.getAccount_number()+"\\");
+              	    //	File file = new File("E:\\OnlineBank\\src\\main\\resources\\"+userProfile.getAccount_number());
+          	        //	session.setAttribute("filePath","E:\\OnlineBank\\src\\main\\resources\\"+userProfile.getAccount_number()+"\\");
 
+              	    	File file = ResourceUtils.getFile("classpath:"+userProfile.getAccount_number());
+              	    	session.setAttribute("filePath",file+"\\");
+              	    	
+              	    	System.out.println(file.toString());
+              	    	
               	    	if (!file.exists()) {
               	        	//model.addObject("filePath",file);
               	        	
@@ -386,6 +589,11 @@ public class BankController {
               	                System.out.println("Failed to create directory!");
               	            }
               	        }
+              	    	else
+              	    	{
+              	    		FileUtils.cleanDirectory(file); 
+
+              	    	}
               	    	
               	    	
         	    	FileOutputStream out = new FileOutputStream(new File(file+"/"+(String)session.getAttribute("from")+"-"+(String)session.getAttribute("to")+".docx"));
@@ -502,45 +710,8 @@ public class BankController {
 	}
 	
 	
+
 	
 	
-	@RequestMapping("/email")
-	public ModelAndView email(ModelAndView model) {
-
-		final String user="sbbibank005@gmail.com";//change accordingly  
-		final String pass="SBBI@2018";  
-		  
-		//1st step) Get the session object    
-		Properties props = new Properties();  
-		props.put("mail.smtp.host", "smtp.googlemail.com");//change accordingly  
-		props.put("mail.smtp.auth", "true");  
-		  
-		Session session = Session.getDefaultInstance(props,  
-		 new javax.mail.Authenticator() {  
-		  protected PasswordAuthentication getPasswordAuthentication() {  
-		   return new PasswordAuthentication(user,pass);  
-		   }  
-		});  
-		//2nd step)compose message  
-		try {  
-		 MimeMessage message = new MimeMessage(session);  
-		 message.setFrom(new InternetAddress(user));  
-		 message.addRecipient(Message.RecipientType.TO,new InternetAddress("isaacmaria2@gmail.com"));  
-		 message.setSubject("aa");  
-		 message.setText("bcd");  
-		   
-		 //3rd step)send message  
-		 Transport.send(message);  
-		  
-		 System.out.println("Done");  
-		  
-		 } catch (MessagingException e) {  
-		    throw new RuntimeException(e);  
-		 }  
-
-		return model;
-
-	}
-
 
 }
