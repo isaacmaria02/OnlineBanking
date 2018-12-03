@@ -379,8 +379,22 @@ public class BankController {
 		long accountNumber = (Long) session.getAttribute("account_number");
 
 		boolean isUserId = accountService.checkUserId(accountNumber, oldUserId);
+		
+		
+
 
 		if (isUserId) {
+			
+			boolean isNewUserIdDuplicate = accountService.checkDupliateId(newUserId);
+
+			if(isNewUserIdDuplicate)
+			{
+				model.addObject("changeId","User ID already exists");
+				model.addObject("ChangeIdView", "not empty");
+				model.setViewName("Dashboard");
+				return model;
+			}
+			
 
 			int isUserIdUpdated = accountService.changeUserId(accountNumber, newUserId);
 
@@ -395,6 +409,7 @@ public class BankController {
 			model.setViewName("Dashboard");
 
 		} else {
+			model.addObject("ChangeIdView", "not empty");
 			model.addObject("changeId", "Please enter correct User Id");
 			model.setViewName("Dashboard");
 		}
@@ -429,6 +444,7 @@ public class BankController {
 			model.setViewName("Dashboard");
 
 		} else {
+			model.addObject("ChangePasswordView","not empty");
 			model.addObject("changePassword", "Please enter correct Login Password");
 			model.setViewName("Dashboard");
 		}
@@ -463,6 +479,7 @@ public class BankController {
 			model.setViewName("Dashboard");
 
 		} else {
+			model.addObject("ChangeTransactionPasswordView","not empty");
 			model.addObject("changeTransactionPassword", "Please enter correct Transaction Password");
 			model.setViewName("Dashboard");
 		}
@@ -484,9 +501,12 @@ public class BankController {
 		XWPFDocument document = new XWPFDocument();
 
 		try {
-
-			File file = ResourceUtils.getFile("classpath:" + userProfile.getAccount_number());
-			session.setAttribute("filePath", file + "\\");
+           File file = new File("C:\\Users\\AE103_PC7\\Desktop\\a\\"+userProfile.getAccount_number());
+           session.setAttribute("filePath",file+"\\");
+		//	File file = ResourceUtils.getFile("classpath:" + userProfile.getAccount_number());
+			//session.setAttribute("filePath", file + "\\");
+           
+           System.out.println(ResourceUtils.getFile("classpath;"));
 
 			System.out.println(file.toString());
 
