@@ -1,7 +1,88 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
+
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- <html>
+<head>
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css' integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="css/registration.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+
+  <ul class="nav navbar-nav pull-right float-left">
+            <li><a  href="javascript:history.back()" class="btn btn-outline-light	pull-right">Back</a></li>
+        </ul>   
+
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SBBI Bank</a>
+    </div>
+</nav>
+  
+<form action="login" method="post">
+  <div class="container" align = "center">
+
+    <h1 align="center">Login</h1>
+   
+    <hr>    
+  <label for="User Id"><b>User Id * <span class="fa fa-user"></span> :</b></label><br>
+    <input type="text"  autocomplete="off" placeholder="Enter your user id"  name="user_id" required><br>
+
+    <label for="password"><b>Password * <span class="fa fa-key"></span> :</b></label><br>
+    <input type="password" placeholder="Enter your password"  name="password" required><br>
+
+    <input type="submit" class="registerbtn" value="Login">
+  
+  </form>
+</div>
+  <div class="container" align = "center">
+    <p><i>First Time User?</i> <a href="Register.jsp"><b>Register</b></a></p>
+<a href="#"><i>Forgot User Id?</i></a><br>
+<a href="#"><i>Forgot password?</i></a><br>
+  </div>
+</form>
+
+
+
+
+
+  <form action="login" method="post">
+            User ID<input type="text"  name="user_id"><br>
+            Password<input type="text" name="password"><br>
+            <input type="submit" value="Login">
+        </form>
+
+</body>
+</html>
+ -->
 
 <html lang="en">
 <head>
@@ -10,6 +91,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css' integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
+
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -102,34 +184,88 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>LOGIN</h1>
+                    <h1>FORGOT PASSWORD</h1>
                 </div><!-- .col -->
             </div><!-- .row -->
         </div><!-- .container -->
     </div><!-- .page-header -->
 
-<form action="login" method="post">
+
+ <c:if test="${not empty ForgotPasswordView}">
+<form action="forgotpassword" method="post">
   <div class="container" align = "center">
 
-    <h1 align="center">Login</h1>
+    <h1 align="center">Forgot Password</h1>
+   <h3 style="color:red;">${message }</h3>
+      <h3 style="color:red;">${   forgot_password_status
+ }</h3>
    
     <hr>    
-  <label for="User Id"><b>User Id * <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text"  autocomplete="off" placeholder="Enter your user id"  name="user_id" required><br>
+  <label for="Account Number"><b>Account Number <span class="fa fa-user"></span> :</b></label><br>
+    <input type="number"  autocomplete="off" placeholder="Enter your account number"  name="account_number" required><br>
 
-    <label for="password"><b>Password * <span class="fa fa-key"></span> :</b></label><br>
-    <input type="password" placeholder="Enter your password"  name="password" title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters"required><br>
 
-    <input type="submit" class="registerbtn" value="Login">
+    <input type="submit" class="registerbtn" value="Submit">
   
   </form>
 </div>
+            </c:if>
+
+           <c:if test="${not empty ForgotPasswordSecurityQuestionView}">
+<form action="checkpasswordquestion" method="post">
   <div class="container" align = "center">
-    <p><i>First Time User?</i> <a href="Register.jsp"><b>Register</b></a></p>
-<a href="#"><i>Forgot User Id?</i></a><br>
-<a href="#"><i>Forgot password?</i></a><br>
-  </div>
-</form>
+
+    <h1 align="center">Security Question</h1>
+    <h2 style="color:red;">${forgot_password_status }</h2>
+   <h2>${Question }</h2>
+    <hr>
+    <input name="account_number" type="number" value=${AccountNumber } style="display:none;"><br>
+        
+  <label for="Account Number"><b>Security Answer<span class="fa fa-user"></span> :</b></label><br>
+    <input type="text"  autocomplete="off" placeholder="Your Security Answer"  name="security_answers" required><br>
+
+    
+
+    <input type="submit" class="registerbtn" value="Submit">
+  
+  </form>
+</div>
+            </c:if>
+
+   
+      <c:if test="${not empty ChangePasswordView}">
+<form action="setnewpassword" method="post">
+  <div class="container" align = "center">
+          
+       <input name="account_number" type="number" value=${AccountNumber } style="display:none;"><br>
+       <h3>Password</h3><input type="password" name="login_password">
+          <h3>Confirm Password</h3><input type="password">
+    <input type="submit" class="registerbtn" value="Change Password">
+  </form>
+</div>
+            </c:if>
+  
+
+    <c:if test="${not empty changepassword}">
+  <div class="container" align = "center">
+          <h2>${changepassword }</h2>
+    
+</div>
+            </c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+           
+
 
     <footer class="site-footer">
         <div class="footer-widgets">
@@ -138,6 +274,7 @@
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="foot-about">
                            
+
                             <p>SBBI Bank is a multinational banking and financial services company headquartered in Mumbai, India. It operates a network of more than 1,200 branches and outlets (including subsidiaries, associates and joint ventures) across more than 70 countries and employs around 87,000 people.</p>
 
                             <ul class="d-flex flex-wrap align-items-center">
