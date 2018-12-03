@@ -110,8 +110,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="registration.css">
-
+  
+<link rel="stylesheet" href="registration.css">
+ <link rel="stylesheet" href="addbtn.css">
+ <link rel="stylesheet" href="passwordShow.css">
+ <link rel="stylesheet" href="Button.css">
+ <title>Indian Districts Select / Dropdown List in jQuery</title>
+    <script language="Javascript" src="jquery.js"></script>
+    <script type="text/JavaScript" src='state.js'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -128,7 +135,7 @@
     
 </nav>
 
-<form action="open" method="post">
+<form action="open" method="post" autocomplete="off">
   <div class="container" align="center" >
 
     <h1 align="center">Open a savings account</h1>
@@ -136,7 +143,7 @@
     <hr>
 
     <label for="Title"><b>Title* <span class="fas fa-hand-point-down"> :</span></b></label><br>
-    <select name="Title">
+    <select name="Title" required>
         <option value="select">Select</option>
         <option value="Mr.">Mr.</option>
 	<option value="Ms.">Ms.</option>
@@ -144,16 +151,16 @@
 	</select><br>
 
   <label for="First Name"><b>First Name* <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter First Name" name="first_name" pattern="[A-Za-z]{}" required><br>
+    <input type="text" placeholder="Enter First Name" name="first_name" pattern="[A-Za-z]+" required><br>
 
     <label for="Middle Name"><b>Middle Name <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter Middle Name" pattern="[A-Za-z]{}" name="middle_name"><br>
+    <input type="text" placeholder="Enter Middle Name" pattern="[A-Za-z]+" name="middle_name"><br>
 
 <label for="Last Name"><b>Last Name* <span class="fa fa-user"></span> :</b></label><br>
-    <input type="text" placeholder="Enter Last Name" name="last_name" pattern="[A-Za-z]{}" required><br>
+    <input type="text" placeholder="Enter Last Name" name="last_name" pattern="[A-Za-z]+" required><br>
 
 <label for="Father's Name"><b>Father's Name* <span class="fa fa-user"></span> :</span></b></label><br>
-    <input type="text" placeholder="Enter Father's Name" name="father_name" pattern="[A-Za-z]{}" required><br>
+    <input type="text" placeholder="Enter Father's Name" name="father_name" pattern="[A-Za-z]+" required><br>
 
 <label for="Email Id"><b>Email Id <span class = "fa fa-envelope"></span></b></label><br>
 <input type="email" id="Enter Email Id" title="Please enter a valid email address ending with e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,3}$"></br>
@@ -162,58 +169,33 @@
 <input type="tel" name="mobile_number" pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Please enter a valid mobile number" required></br>
 
 <label for="Aadhar Card No"><b>Aadhar Card No* <span class="fa fa-address-card"></span>:</b></label><br>
-    <input type="text" placeholder="Enter Aadhar No" name="aadhar_card" pattern = "[2-9]{1}[0-9]{11}" maxlength="12" title="Please enter a 12 digit aadhar number" required><br> 
+    <input type="text" placeholder="Enter Aadhar No" name="aadhar_card" pattern = "[2-9]{1}[0-9]+" maxlength="12" title="Please enter a 12 digit aadhar number" required><br> 
 
 <label for="Date Of Birth"><b>Date Of Birth* <span class="fa fa-calendar"></span>:</b></label><br>
-    <input type="date"  name="date_of_birth" value="1990-01-01" required><br>
+    <input type="date"  name="date_of_birth" value="1990-01-01" min="1960-01-01" max="2017-12-03" required><br>
     
     <label for="Annual_Income"><b>Annual Income* :</b></label><br>
-    <input type="text"  name="annual_income" pattern="[1-9]{1}[0-9]{}"><br>
+    <input type="number"  name="annual_income" pattern="[1-9]{1}[0-9]+" min="10000"><br>
 
  <p><b>Address <span class="fa fa-address-card"></span>:</b></p><br>
 
  <label for="Address Line 1"><b>Address Line 1* :</b></label><br>
-    <input type="text"  name="address_line_1" pattern="[A-Za-z0-9]{}" required><br>
+    <input type="text"  name="address_line_1" pattern="[A-Za-z0-9]+" required><br>
     
 <label for="Address Line 2"><b>Address Line 2* :</b></label><br>
-    <input type="text"  name="address_line_2" pattern="[A-Za-z0-9]{}" required><br>
+    <input type="text"  name="address_line_2" pattern="[A-Za-z0-9]+" required><br>
     
-<label for="State"><b>State* :</b></label><br>
-   <select name="state">
-        <option value="State">Select</option>
-        <option value="Andhra Pradesh">Andhra Pradesh</option>
-        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-        <option value="Assam">Assam</option>
-        <option value="Bihar">Bihar</option>
-        <option value="Chattisgarh">Chattisgarh</option>
-        <option value="Goa">Goa</option>
-        <option value="Gujrat">Gujrat</option>
-        <option value="Haryana">Haryana</option>
- <option value="Himachal Pradesh">Himachal Pradesh</option>
-        <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-        <option value="Jharkhand">Jharkhand</option>
-        <option value="Karnatka">Karnatka</option>
-<option value="Kerala">Kerala</option>
-        <option value="Madhya Pradesh">Madhya Pradesh</option>
-        <option value="Maharashtra">Maharashtra</option>
-        <option value="Manipur">Manipur</option>
-<option value="Meghalaya">Meghalaya</option>
-        <option value="Mizoram">Mizoram</option>
-        <option value="Nagaland">Nagaland</option>
-        <option value="Orissa">Orissa</option>
-<option value="Punjab">Punjab</option>
-        <option value="Rajasthan">Rajasthan</option>
-        <option value="Sikkim">Sikkim</option>
-        <option value="Tamil Nadu">Tamil Nadu</option>
-<option value="Telangana">Telangana</option>
-        <option value="Tripura">Tripura</option>
-        <option value="Uttarakhand">Uttarakhand</option>
-        <option value="Uttar Pradesh">Uttar Pradesh</option>
-<option value="West Bengal">West Bengal</option> <br> <br>
-      </select><br><br>
-
-<label for="City"><b>City* :</b></label><br>
-    <input type="text"  name="city" pattern="[A-Za-z]{}" required><br><br>
+    <div class='resp_code frms' >
+      <p> <h5> <font style='font: 1em/1.3em Tahoma,Geneva,sans-serif;'>
+      <b>Indian Districts Select List in jQuery</b></font></h5></p>
+      <div id="selection">
+        <select id="listBox" onchange='selct_district(this.value)'></select>
+        <select id='secondlist'></select>
+      </div>
+      <div id="dumdiv" align="center" style=" font-size: 10px;color: #dadada;">
+        <a id="dum" style="padding-right:0px; text-decoration:none;color: green;text-align:center;"></a>
+      </div>
+    </div>
 
 <label for="Pincode"><b>Pincode* :</b></label><br>
     <input type="text" name="pin_code" pattern="[1-9]{1}[0-9]{5}" maxlength="6" required><br><br>
@@ -223,7 +205,6 @@
     <input type="submit" class="registerbtn" value="Open Account">
   
   </form>
-
 
 </body>
 </html>

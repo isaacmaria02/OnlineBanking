@@ -72,10 +72,10 @@ return true;
     <hr>    
     <h2>${register_error }</h2>
   <label for="Account No"><b>Account Number *<span class="fa fa-address-card"></span>  :</b></label><br>
-    <input type="number" placeholder="Enter your account number" maxlength="12" name="account_number" required><br>
+    <input type="number" placeholder="Enter your account number" pattern="[1]{1}[0-9]{11}" maxlength="12" name="account_number" required><br>
 
     <label for="User Id"><b>Set User Id * <span class="fa fa-user-circle"></span> :</b></label><br>
-    <input type="text" placeholder="Set your user id" pattern="[A-Za-z0-9]{8}" name="user_id" required><br>
+    <input type="text" placeholder="Set your user id" pattern="[A-Za-z0-9]{0-8}" name="user_id" required><br>
 
 <label for="Password"><b>Enter Login Password* <span class="fa fa-key"></span> :</span></b></label><br>
     <input type="password" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters" placeholder="Enter new password" name="login_password" required><br>
@@ -159,7 +159,7 @@ myInput.onkeyup = function() {
   <p id="length" class="invalid">Minimum <b>8 characters</b></p>
 </div> 
 <script>
-var myInput = document.getElementById("Password");
+var myInput = document.getElementById("TransactionPassword");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
@@ -218,10 +218,10 @@ myInput.onkeyup = function() {
 }
 </script>
 <label for="Confirm transaction password "><b>Confirm transaction password *  :</b></label><br>
-  <input type="password" id="ConTransactionPass"                onblur="return ValidateTran()" placeholder="Confirm your transaction password" required><br>
+  <input type="password" id="ConTransactionPass"  onblur="return ValidateTran()" placeholder="Confirm your transaction password" required><br>
 
 <label for="Security Question "><b>Select a security question * <span class="fa fa-question"></span>  :</b></label><br>
-    <select name="security_questions">
+    <select name="security_questions" required>
         <option value="State">Select</option>
         <option value="What's your childhood nickname">What's your childhood nickname?</option>
         <option value="What's your favourite movie?">What's your favourite movie?</option>
