@@ -115,7 +115,7 @@
  <link rel="stylesheet" href="addbtn.css">
  <link rel="stylesheet" href="passwordShow.css">
  <link rel="stylesheet" href="Button.css">
- <title>Indian Districts Select / Dropdown List in jQuery</title>
+
     <script language="Javascript" src="jquery.js"></script>
     <script type="text/JavaScript" src='state.js'></script>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -163,8 +163,7 @@
     <input type="text" placeholder="Enter Father's Name" name="father_name" pattern="[A-Za-z]+" required><br>
 
 <label for="Email Id"><b>Email Id <span class = "fa fa-envelope"></span></b></label><br>
-<input type="email" id="Enter Email Id" title="Please enter a valid email address ending with e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,3}$"></br>
-
+<input type="email" id="Enter Email Id" title="Please enter a valid email address ending with e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-A-Z]+\.[a-z]{2,3}$"></br>
 
  <label for="Mobile No"><b>Mobile Number* <span class="fa fa-mobile"></span>:</b></label><br>
 <input type="tel" name="mobile_number" pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Please enter a valid mobile number" required></br>
@@ -186,14 +185,14 @@
 <label for="Address Line 2"><b>Address Line 2* :</b></label><br>
     <input type="text"  name="address_line_2" pattern="[A-Za-z0-9]+" required><br>
     
-    <div class='resp_code frms' >
+    <div class='resp_code frms' align="center" >
       <p> <h5> <font style='font: 1em/1.3em Tahoma,Geneva,sans-serif;'>
-      <b>Indian Districts Select List in jQuery</b></font></h5></p>
+     
       <div id="selection">
         <select id="listBox" onchange='selct_district(this.value)'></select>
         <select id='secondlist'></select>
       </div>
-      <div id="dumdiv" align="center" style=" font-size: 10px;color: #dadada;">
+      <div id="dumdiv" align="center"  font-size: 10px;color: #dadada;">
         <a id="dum" style="padding-right:0px; text-decoration:none;color: green;text-align:center;"></a>
       </div>
     </div>

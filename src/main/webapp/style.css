@@ -42,11 +42,11 @@ box-shadow: inset 7px 4px 7px -7px rgba(0,0,0,0.42);
 }
 .resp_code
 {
-margin:5px 10px 10px 300px;
+margin: 5px 0 22px 0;
 padding:10px 20px 10px 20px;
 color:#333;
 background:#f8f8f8;
-overflow:auto;width:50%;
+overflow:auto;width:60%;
 }
 h5{
     margin: 0;

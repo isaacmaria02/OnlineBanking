@@ -10,8 +10,6 @@
 
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.4.2/css/all.css' integrity='sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns' crossorigin='anonymous'>
 
-  <link rel="stylesheet" href="registration.css">
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -75,9 +73,9 @@ return true;
     <input type="number" placeholder="Enter your account number" pattern="[1]{1}[0-9]{11}" maxlength="12" name="account_number" required><br>
 
     <label for="User Id"><b>Set User Id * <span class="fa fa-user-circle"></span> :</b></label><br>
-    <input type="text" placeholder="Set your user id" pattern="[A-Za-z0-9]{0-8}" name="user_id" required><br>
+    <input type="text" placeholder="Set your user id" pattern="[A-Za-z]{0,8}" maxlength="8" name="user_id" required><br>
 
-<label for="Password"><b>Enter Login Password* <span class="fa fa-key"></span> :</span></b></label><br>
+<label for="Password"><b>Enter Login Password* :<span class="fa fa-key"></span> </b></label><br>
     <input type="password" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters" placeholder="Enter new password" name="login_password" required><br>
     <div id="message">
   <h3>Password must contain the following:</h3>
@@ -151,7 +149,7 @@ myInput.onkeyup = function() {
    
   <label for="Password"><b>Enter Transaction Password* <span class="fa fa-key"></span> :</span></b></label><br>
     <input type="password" id="TransactionPass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters" placeholder="Enter new password" name="transaction_password" required><br>
-    <div id="message">
+    <div id="message1">
   <h3>Password must contain the following:</h3>
   <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
   <p id="capital" class="invalid">A <b>capital (uppercase)</b>letter</p>
@@ -159,7 +157,7 @@ myInput.onkeyup = function() {
   <p id="length" class="invalid">Minimum <b>8 characters</b></p>
 </div> 
 <script>
-var myInput = document.getElementById("TransactionPassword");
+var myInput = document.getElementById("TransactionPass");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
@@ -167,12 +165,12 @@ var length = document.getElementById("length");
 
 // When the user clicks on the password field, show the message box
 myInput.onfocus = function() {
-    document.getElementById("message").style.display = "block";
+    document.getElementById("message1").style.display = "block";
 }
 
 // When the user clicks outside of the password field, hide the message box
 myInput.onblur = function() {
-    document.getElementById("message").style.display = "none";
+    document.getElementById("message1").style.display = "none";
 }
 
 // When the user starts to type something inside the password field
@@ -229,7 +227,7 @@ myInput.onkeyup = function() {
 </select><br>
 
 <label for="Security Answer "><b>Your Answer * <span class="fa fa-pencil"></span>:</b></label><br>
-<input type="text" placeholder="Enter your security answer" name="security_answers" pattern=[A-Za-z]{} required><br>
+<input type="text" placeholder="Enter your security answer" name="security_answers" pattern="[A-Za-z]+" required><br>
    
     <input type="submit" class="registerbtn" value="Register">
   
