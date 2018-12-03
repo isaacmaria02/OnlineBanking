@@ -165,6 +165,7 @@
 <label for="Email Id"><b>Email Id <span class = "fa fa-envelope"></span></b></label><br>
 <input type="email" id="Enter Email Id" title="Please enter a valid email address ending with e.g. @gmail.com,@yahoo.com etc." name="email_id" pattern="[a-zA-Z]{1}[a-zA-Z0-9._%+-]+@[a-z.-]+\.[a-z]{2,3}$"></br>
 
+
  <label for="Mobile No"><b>Mobile Number* <span class="fa fa-mobile"></span>:</b></label><br>
 <input type="tel" name="mobile_number" pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Please enter a valid mobile number" required></br>
 
