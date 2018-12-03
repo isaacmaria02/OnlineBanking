@@ -1,5 +1,6 @@
 <%@ page errorPage="ErrorPage.jsp" %>  
 
+
 <%
 response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 if(session!=null)
@@ -18,9 +19,14 @@ if(session!=null)
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+
+
 <html lang="en">
 
   <head>
+  <title>
+  Dashboard
+  </title>
   <style type="text/css">
 	.pull{
 
@@ -31,7 +37,8 @@ if(session!=null)
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-   
+  
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -45,20 +52,38 @@ if(session!=null)
               $("#transfer").click(function(){
             	  $('.hidden').show();
                   $('#transfer').hide();
+                  
+                  
                   $('.readonly').prop('disabled', true) 
-         });
-                            
+            
+            	  
+              });
+              
+              
               $("#backbtn").click(function(){
             	  $('.hidden').hide();
-                  $('#transfer').show();                               
-                  $('.readonly').prop('disabled', false)                      	  
+                  $('#transfer').show();
+                  
+                  
+                  $('.readonly').prop('disabled', false) 
+            
+            	  
               });
-                                         
+              
+              
+              
               $('#fundtransfer').on('submit', function() {
             	    $('.readonly').prop('disabled', false);
-            	});                                                                    
+            	});
+              
+              
+              
+            
+              
             });
         </script>
+
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -69,41 +94,18 @@ if(session!=null)
                 $("#payeeListTable tr").filter(function() {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
-              });                          
-                          
+              });
+              
+             
+                
+           
             });
-      
+            
+            
+            
+            
         </script>
-<script type="text/javascript">
 
-function ValidatePass(){
-var loginpassword = document.getElementById("Password").value;
-var conloginpass = document.getElementById("ConfirmPass").value;
-	if(loginpassword != conloginpass){
-alert ("Login Password do not match.");
-return false;
-}
-return true;
-}	
-	function ValidateTranPass(){
-var TranPass = document.getElementById("TranPassword").value;
-var conTranPass = document.getElementById("ConfirmTranPass").value;
-	if(TranPass != conTranPass){
-alert ("Transaction Password do not match.");
-return false;
-}
-return true;
-}
-	function Validate(){
-		var uid = document.getElementById("UserId").value;
-		var cuid = document.getElementById("ConUserId").value;
-			if(uid != cuid){
-		alert ("Transaction Password do not match.");
-		return false;
-		}
-		return true;
-		}
-</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -162,10 +164,15 @@ return true;
         <i class="fas fa-bars"></i>
       </button>
 
+      
+ 
+
+
 <div class="pull">
         <ul class="nav navbar-nav pull-right float-right">
             <li><a href="logout" class="btn btn-outline-light	pull-right">Logout</a></li>
         </ul>     
+        
          
 </div>
     </nav>
@@ -252,6 +259,8 @@ return true;
    </div>
 </div>
 
+
+
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-10">
@@ -261,7 +270,9 @@ return true;
                   </div>
                   <div class="mr-5">Fund Transfer</div>
                 </div>
-
+                
+                
+                
               </div>
 
 <!-- .dropright -->
@@ -280,6 +291,10 @@ return true;
    
    </div>
 </div>
+
+
+
+
 
             </div>
             <div class="col-xl-4 col-sm-6 mb-3">
@@ -308,9 +323,12 @@ return true;
       <a class="dropdown-item" href="changeTransactionPasswordPage">Change Transaction Password</a>
    </div>
 </div>
+
             </div>
-                       
-             <c:if test="${not empty DisplayPayeeView}">
+            
+ 
+           
+            <c:if test="${not empty DisplayPayeeView}">
             <div align="center">
                 <br><br>
         <h3>Search</h3>   <input class="form-control" id="searchPayee" type="text" placeholder="Search..">
@@ -335,17 +353,25 @@ return true;
                 </table>
                 </div>
             </c:if>
-        </div>                          
-           
+        </div>
+            
+                      
+                      
+            
+            
+            
             ${transaction}
             ${payee_status}            
             ${changeId }
             ${changePassword}
             ${changeTransactionPassword }
             ${fundTransfer }
-          
+            
+            
+            
             <c:if test="${not empty AddPayeeView}">
-             
+            
+                
                 <div align="center">
                              <h3>Add Payee</h3>
                 
@@ -360,7 +386,10 @@ return true;
         </form>
             </div>
             </c:if>
-          
+            
+            
+            
+            
              <c:if test="${not empty DeletePayeeView}">
                             <div align="center">
             
@@ -368,24 +397,28 @@ return true;
         <form action="DeletePayee">
         <table>
          <tr><td>Delete Payee by Name</td><td> <input type="text" name="payee_name"></td></tr>
-                       
+            
+             
             <tr><td colspan="2"><input value="Delete Payee" class="btn btn-primary dropdown-toggle dropdown-toggle-split"  type="submit"></td><tr>
         </table>
         </form>
             </div>
             
             </c:if>
-          
+            
+            
+      
              <c:if test="${not empty ChangeIdView}">
                             <div align="center">
                             
                             <h3>Change User Id</h3>
             <table>
-                  
+          
+          
           <form action="checkId" method="post">
-<tr><td>Old ID</td><td><input type="text" name="old" required></td></tr>
-<tr><td>New User ID</td><td><input type="text" name="new" pattern="[A-Za-z0-9]{0-8}" maxlength="8"  id="UserId" required></td></tr>
-<tr><td>Confirm User ID</td><td><input type="text" name="confirm"  id="ConUserId"  onblur="return Validate()" required></td></tr>
+<tr><td>Old ID</td><td><input type="text" name="old"></td></tr>
+<tr><td>New User ID</td><td><input type="text" name="new"></td></tr>
+<tr><td>Confirm User ID</td><td><input type="text" name="confirm"></td></tr>
 <tr><td colspan="2"><input type="submit" class="btn btn-primary dropdown-toggle dropdown-toggle-split" value="Change User Id"></td></tr>
 </form>
 
@@ -396,81 +429,17 @@ ${changeId }
             
             </c:if>
             
+            
+            
                <c:if test="${not empty ChangePasswordView}">
                             <div align="center">
                             
                             <h3>Change Password</h3>
            <table>
               <form action="checkPassword" method="post">
-<tr><td>Old Password</td><td><input type="password" name="old" required></td></tr>
-<tr><td>New Login Password</td><td><input type="password" name="new" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters" placeholder="Enter new password" required></td></tr>
-   <div id="message">
-  <h3>Password must contain the following:</h3>
-  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-  <p id="capital" class="invalid">A <b>capital (uppercase)</b>letter</p>
-  <p id="number" class="invalid">A <b>number</b></p>
-  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-</div> 
-<script>
-var myInput = document.getElementById("Password");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
-
-// When the user clicks on the password field, show the message box
-myInput.onfocus = function() {
-    document.getElementById("message").style.display = "block";
-}
-
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
-    document.getElementById("message").style.display = "none";
-}
-
-// When the user starts to type something inside the password field
-myInput.onkeyup = function() {
-  // Validate lowercase letters
-  var lowerCaseLetters = /[a-z]/g;
-  if(myInput.value.match(lowerCaseLetters)) {  
-    letter.classList.remove("invalid");
-    letter.classList.add("valid");
-  } else {
-    letter.classList.remove("valid");
-    letter.classList.add("invalid");
-  }
-  
-  // Validate capital letters
-  var upperCaseLetters = /[A-Z]/g;
-  if(myInput.value.match(upperCaseLetters)) {  
-    capital.classList.remove("invalid");
-    capital.classList.add("valid");
-  } else {
-    capital.classList.remove("valid");
-    capital.classList.add("invalid");
-  }
-
-  // Validate numbers
-  var numbers = /[0-9]/g;
-  if(myInput.value.match(numbers)) {  
-    number.classList.remove("invalid");
-    number.classList.add("valid");
-  } else {
-    number.classList.remove("valid");
-    number.classList.add("invalid");
-  }
-  
-  // Validate length
-  if(myInput.value.length >= 8) {
-    length.classList.remove("invalid");
-    length.classList.add("valid");
-  } else {
-    length.classList.remove("valid");
-    length.classList.add("invalid");
-  }
-}
-</script>
-<tr><td>Confirm Login Password</td><td><input type="password" id="ConfirmPass" onblur="return ValidatePass()" name="confirm"></td></tr>
+<tr><td>Old Password</td><td><input type="password" name="old"></td></tr>
+<tr><td>New Login Password</td><td><input type="password" name="new"></td></tr>
+<tr><td>Confirm Login Password</td><td><input type="password" name="confirm"></td></tr>
 <tr><td colspan="2"><input type="submit" class="btn btn-primary dropdown-toggle dropdown-toggle-split" value="Change Password"></td></tr>
 </form>
 </table>
@@ -478,83 +447,18 @@ ${changePassword }
             </div>
             
             </c:if>
-           
+            
+            
+            
                <c:if test="${not empty ChangeTransactionPasswordView}">
                             <div align="center">
                             
                             <h3>Change Transaction Password</h3>
            <table>
               <form action="checkTransactionPassword" method="post">
-<tr><td>Old Password</td><td><input type="password" name="old" required></td></tr>
-<tr><td>New Login Password</td><td><input type="password" name="new" id="TranPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number,one uppercase letter and one lowercase letter, and at least 8 or more characters" placeholder="Enter new password" name="login_password" required>></td></tr>
- <div id="message">
-  <h3>Password must contain the following:</h3>
-  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-  <p id="capital" class="invalid">A <b>capital (uppercase)</b>letter</p>
-  <p id="number" class="invalid">A <b>number</b></p>
-  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-</div> 
-<script>
-var myInput = document.getElementById("TranPassword");
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
-
-// When the user clicks on the password field, show the message box
-myInput.onfocus = function() {
-    document.getElementById("message").style.display = "block";
-}
-
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
-    document.getElementById("message").style.display = "none";
-}
-
-// When the user starts to type something inside the password field
-myInput.onkeyup = function() {
-  // Validate lowercase letters
-  var lowerCaseLetters = /[a-z]/g;
-  if(myInput.value.match(lowerCaseLetters)) {  
-    letter.classList.remove("invalid");
-    letter.classList.add("valid");
-  } else {
-    letter.classList.remove("valid");
-    letter.classList.add("invalid");
-  }
-  
-  // Validate capital letters
-  var upperCaseLetters = /[A-Z]/g;
-  if(myInput.value.match(upperCaseLetters)) {  
-    capital.classList.remove("invalid");
-    capital.classList.add("valid");
-  } else {
-    capital.classList.remove("valid");
-    capital.classList.add("invalid");
-  }
-
-  // Validate numbers
-  var numbers = /[0-9]/g;
-  if(myInput.value.match(numbers)) {  
-    number.classList.remove("invalid");
-    number.classList.add("valid");
-  } else {
-    number.classList.remove("valid");
-    number.classList.add("invalid");
-  }
-  
-  // Validate length
-  if(myInput.value.length >= 8) {
-    length.classList.remove("invalid");
-    length.classList.add("valid");
-  } else {
-    length.classList.remove("valid");
-    length.classList.add("invalid");
-  }
-}
-</script>
-
-<tr><td>Confirm Transaction Password</td><td><input type="password" id="ConfirmTranPass" onblur="return ValidateTranPass()" name="confirm"></td></tr>
+<tr><td>Old Password</td><td><input type="password" name="old"></td></tr>
+<tr><td>New Login Password</td><td><input type="password" name="new"></td></tr>
+<tr><td>Confirm Login Password</td><td><input type="password" name="confirm"></td></tr>
 <tr><td colspan="2"><input type="submit" class="btn btn-primary dropdown-toggle dropdown-toggle-split" value="Change Password"></td></tr>
 </form>
 </table>
@@ -562,6 +466,10 @@ ${changeTransactionPassword }
             </div>
             
             </c:if>
+            
+            
+            
+            
               <c:if test="${not empty AccountStatementView}">
                             <div align="center">
                             
@@ -578,7 +486,8 @@ ${changeTransactionPassword }
         <br><br>
                     </div>
             
-            </c:if>          
+            </c:if>
+            
             
             <c:if test="${not empty AccountStatementList}">
            
@@ -629,7 +538,9 @@ ${changeTransactionPassword }
                <a class="btn btn-primary dropdown-toggle dropdown-toggle-split" href="download">Download</a>
         
         </c:if>
- 
+
+
+           
                        <c:if test="${not empty statement}">
             
               <div align="center">
@@ -642,10 +553,15 @@ ${changeTransactionPassword }
 
             <!-- <input type="submit" value="Get Account Statement"><br> -->
         </form>
-           </div><br>           
-              ${statement}         
+           </div><br>
+           
+              ${statement}
+           
      </div>
 </c:if>
+
+
+
 
                        <c:if test="${not empty AccountSummaryView}">
             
@@ -659,6 +575,8 @@ ${changeTransactionPassword }
                <td>${summary.customer_id}</td>
             </tr>
             
+     
+            
               <tr>
              <td>  Account Number</td>
                 <td>${summary.account_number}</td>
@@ -667,16 +585,28 @@ ${changeTransactionPassword }
               <tr>
                <td>Balance</td>
                <td>${summary.balance}</td>
-            </tr>            
+            </tr>
+            
      
               <tr>
                <td>Type</td>
                <td>${summary.account_type}</td>
             </tr>       
             </table>
-           </div><br>  
+
+        
+        
+           </div><br>
+           
+            
+           
      </div>
 </c:if>
+
+
+
+
+
 
             <c:if test="${not empty AccountDetailsView}">
             
@@ -721,6 +651,10 @@ ${changeTransactionPassword }
               <td>State</td>
                <td>${user_profile.state}</td>
             </tr>       
+            
+            
+            
+     
            
             </table>   
             
@@ -733,6 +667,8 @@ ${changeTransactionPassword }
                <td>${user_profile.customer_id}</td>
             </tr>
             
+     
+            
               <tr>
              <td>  Account Number</td>
                 <td>${user_profile.account_number}</td>
@@ -742,17 +678,29 @@ ${changeTransactionPassword }
                <td>Balance</td>
                <td>${user_profile.balance}</td>
             </tr>
-                 
+            
+     
               <tr>
                <td>Type</td>
                <td>${user_profile.account_type}</td>
             </tr>       
             </table>
-          
+            
+
+        
+        
            </div><br>
+           
+            
            
      </div>
 </c:if>
+
+ 
+
+
+
+
 
                        <c:if test="${not empty FundTransferView}">
             
@@ -847,12 +795,22 @@ ${changeTransactionPassword }
 
 
             });
-           
+
+            
             </script>
-      
-</div> 
+         
+            
+</div>
+
+ 
+ 
  </div>
 </c:if>
+
+
+
+
+
 
         <!-- /.container-fluid -->
 

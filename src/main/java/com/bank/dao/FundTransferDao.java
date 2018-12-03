@@ -4,12 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.bank.model.Payee;
 import com.bank.model.Transaction;
-import com.bank.service.IFundTransferService;
+import com.bank.service.IAccountService;
+
 /**
  * 
  * @author Isaac Maria <isaac.maria@lntinfotech.com
@@ -26,12 +28,15 @@ public class FundTransferDao implements IFundTransferDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	
+	@Autowired
+	private IAccountService accountService;
 
 	public int addPayee(Payee payee) {
 		int i = 0;
-
-		System.out.println("hows u");
-		System.out.println(payee.getCustomer_account_number());
+		
+        
 
 		String addPayeeQuery = "insert into GR13_payee values(" + payee.getPayee_account_number() + ",'"
 				+ payee.getName() + "','" + payee.getNick_name() + "'," + payee.getCustomer_account_number() + ")";
@@ -53,6 +58,7 @@ public class FundTransferDao implements IFundTransferDao {
 	public List<Payee> displayPayee(long accountNumber) {
 		// TODO Auto-generated method stub
 
+		
 		String getPayeeQuery = "select * from gr13_payee where GP_GC_CUSTOMER_ACCOUNT_NUMBER=" + accountNumber;
 
 		return jdbcTemplate.query(getPayeeQuery, new RowMapper<Payee>() {
@@ -81,7 +87,7 @@ public class FundTransferDao implements IFundTransferDao {
 		i = jdbcTemplate.update(updateCustomerBalance);
 
 		String updatePayeeBalance = "update gr13_accounts set ga_balance=ga_balance+" + tr.getAmount()
-		+ " where ga_account_number=" + tr.getTo_account();
+				+ " where ga_account_number=" + tr.getTo_account();
 		j = jdbcTemplate.update(updatePayeeBalance);
 
 		if (i > 0 && j <= 0) {
@@ -94,7 +100,7 @@ public class FundTransferDao implements IFundTransferDao {
 		} else if (j > 0 && i <= 0) {
 			// ADDED TO PAYEE BUT NOT DEDUCTED FROM CUSTOMER
 			updateCustomerBalance = "update gr13_accounts set ga_balance=ga_balance-" + tr.getAmount()
-			+ " where ga_account_number=" + tr.getTo_account();
+					+ " where ga_account_number=" + tr.getTo_account();
 			i = jdbcTemplate.update(updateCustomerBalance);
 
 			return false;
@@ -124,7 +130,7 @@ public class FundTransferDao implements IFundTransferDao {
 			i = jdbcTemplate.update(updateCustomerBalance);
 
 			updateCustomerBalance = "update gr13_accounts set ga_balance=ga_balance-" + tr.getAmount()
-			+ " where ga_account_number=" + tr.getTo_account();
+					+ " where ga_account_number=" + tr.getTo_account();
 			i = jdbcTemplate.update(updateCustomerBalance);
 
 		}
