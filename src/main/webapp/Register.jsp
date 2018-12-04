@@ -68,7 +68,7 @@ return true;
 		var userId = document.getElementById("UserId").value;
 		var conUserId = document.getElementById("ConUserId").value;
 			if(userId != conUserId){
-		alert ("User Id's do not match.");
+		alert ("User Id's do not match....");
 		return false;
 		}
 		return true;

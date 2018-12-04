@@ -33,8 +33,8 @@ public class AdminController {
 	 * 
 	 * @param model   model it a type of ModelAndView
 	 * @param admin   it is POJO class to store admin credentials
-	 * @param session to remember the admin's login sessio
-	 * @return Dashboard view if successsully authenticated else it redirects back
+	 * @param session to remember the admin's login session
+	 * @return Dashboard view if successsully renders after authentication else it redirects back
 	 *         to the login page
 	 */
 
@@ -44,7 +44,7 @@ public class AdminController {
 		if (admin.getAdminId().equals("admin") && admin.getAdminPassword().equals("admin123")) {
 			session.setAttribute("isAdminLoggedIn", true);
 
-			System.out.println(session.getAttribute("isAdminLoggedIn"));
+			//System.out.println(session.getAttribute("isAdminLoggedIn"));
 
 			/*
 			 * List<Profile> accountOpeningRequests = adminService.displayRequests();
@@ -83,8 +83,8 @@ public class AdminController {
 	/**
 	 * 
 	 * @param model   is of type ModelAndView
-	 * @param session is used to invalidate the admin's login ses
-	 * @return to Bank Homepage aftr logout
+	 * @param session is used to invalidate the admin's login session
+	 * @return to Bank Home page after logout
 	 */
 	@RequestMapping(value = "/adminlogout")
 	public ModelAndView adminLogout(ModelAndView model, HttpSession session) {
