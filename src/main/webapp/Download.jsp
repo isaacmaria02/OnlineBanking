@@ -9,12 +9,15 @@
 <body>
 
 <%    
-  String filename = (String) session.getAttribute("fileName");
-  String filepath = (String)session.getAttribute("filePath");
+  String filename = (String) session.getAttribute("fileName");//gets the file name 
+  String filepath = (String)session.getAttribute("filePath"); // gets  the file directory
   
 
   
  response.setContentType("application/msword");   
+  
+  
+  
   response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
   
   java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath + filename);  
