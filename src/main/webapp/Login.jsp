@@ -126,10 +126,11 @@
 </div>
   <div class="container" align = "center">
     <p><i>First Time User?</i> <a href="Register.jsp"><b>Register</b></a></p>
-<a href="#"><i>Forgot User Id?</i></a><br>
-<a href="#"><i>Forgot password?</i></a><br>
+<a href="forgotid"><i>Forgot User Id?</i></a><br>
+<a href="forgotpassword"><i>Forgot password?</i></a><br>
   </div>
 </form>
+
 
     <footer class="site-footer">
         <div class="footer-widgets">
