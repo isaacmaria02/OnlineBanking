@@ -59,7 +59,7 @@ return true;
 var TranPass = document.getElementById("TransactionPass").value;
 var conTranPass = document.getElementById("ConTransactionPass").value;
 	if(TranPass != conTranPass){
-alert ("Transaction Password do not match.");
+alert ("Transaction Password do not match....");
 return false;
 }
 return true;
